@@ -25,7 +25,7 @@ async def hello(ctx):
 
 @bot.command()
 async def yoba(ctx):
-    sheet = services.spreadsheet.SpreadSheet("objectives_list")
+    sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
     value = sheet.cell(1, 1).value
     await ctx.send("yoba" + value)
 
