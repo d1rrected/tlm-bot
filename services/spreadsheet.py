@@ -42,7 +42,7 @@ class SpreadSheet():
         self.RECORDS = self.get_all_records()
 
 
-    def get_creds_from_env():
+    def get_creds_from_env(self):
         raw_creds = os.environ.get("GOOGLE_CREDS")
         if not raw_creds:
             raise ValueError("No credentials found in environment.")
