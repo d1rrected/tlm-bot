@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f"Mama ama landed {bot.user}")
+    print(f"Slaya ama ready")
 
 @bot.command()
 async def ping(ctx):
