@@ -28,6 +28,13 @@ async def yoba(ctx):
     sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
     records_list = sheet.get_all_records()
     for record in records_list:
-        await ctx.send(record["Type"])
+        if record["Type"]:
+            await ctx.send(record["Type"])
+        else:
+            await ctx.send("Empty!")
+
+    for record in records_list:
+        if record:
+            await ctx.send(record)
 
 bot.run(os.environ["DISCORD_TOKEN"])
