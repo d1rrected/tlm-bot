@@ -29,7 +29,7 @@ async def yoba(ctx):
     records_list = sheet.get_all_records()
     ids = []
     for record in records_list:
-        ids = ids + record["Type"]
+        ids = ids.append(record["Type"])
     await ctx.send("yoba" + ids)
 
 bot.run(os.environ["DISCORD_TOKEN"])
