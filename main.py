@@ -26,7 +26,10 @@ async def hello(ctx):
 @bot.command()
 async def yoba(ctx):
     sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
-    value = sheet.cell(1, 1).value
-    await ctx.send("yoba" + value)
+    records_list = sheet.get_all_records()
+    ids = []
+    for record in records_list:
+        ids = ids + record["Type"]
+    await ctx.send("yoba" + ids)
 
 bot.run(os.environ["DISCORD_TOKEN"])
