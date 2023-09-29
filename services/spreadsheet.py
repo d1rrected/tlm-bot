@@ -19,7 +19,7 @@ class SpreadSheet():
         # Load config.ini and get configs
         # print(urllib3.__version__)
         currentPath = os.path.dirname(os.path.realpath(__file__))
-        creds_path = os.path.dirname(currentPath) + "/config.ini"
+        creds_path = os.path.dirname(currentPath) + "\\.secrets\\creds.json"
 
         self.DOCUMENT = document
         # API URLs
@@ -53,9 +53,6 @@ class SpreadSheet():
         cell_row = cell.row
         self.SHEET.update_cell(cell_row, fill_row_number, fill_cell_value)
 
-    #def bulk_update_cells(self):
-    #    self.SHEET.update_cells()
-
     def get_all_records(self):
         return self.SHEET.get_all_records(expected_headers=[])
 
@@ -67,7 +64,19 @@ class SpreadSheet():
         if any(obj['id'] == value for obj in self.RECORDS):
             return True
         return False
-        # for record in self.RECORDS:
-        #     if record["Id"] == value:
-        #         return True
-        # return False
+
+    def clean_all_records(self):
+        total_rows = len(self.SHEET.get_all_values())
+        if total_rows > 1:
+            self.SHEET.delete_rows(2, total_rows)
+
+    def batch_update(self, range_name, values):
+        """
+        Batch update values.
+
+        :param range_name: the A1 notation of the values to update.
+        :param values: the values to update in the specified range.
+        :return: the result of the update.
+        """
+        return self.SHEET.update(range_name, values, value_input_option="RAW")
+
