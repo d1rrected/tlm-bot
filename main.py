@@ -20,10 +20,6 @@ sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
 
-zones = [
-    'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Avalanche Incline', 'Avalanche Ravine', 'Battlebrae Flatland', 'Battlebrae Grassland', 'Battlebrae Lake', 'Battlebrae Meadow', 'Battlebrae Peaks', 'Battlebrae Plain', 'Bleachskull Desert', 'Bleachskull Steppe', 'Braemore Lowland', 'Braemore Upland', 'Brambleshore Hinterlands', 'Darkbough Snag', 'Deadpine Forest', 'Deathwisp Bog', 'Deathwisp Sink', 'Deepwood Copse', 'Deepwood Dell', 'Deepwood Gorge', 'Deepwood Pines', 'Driftwood Glen', 'Driftwood Hollow', 'Driftwood Vale', 'Drownfield Course', 'Drownfield Fen', 'Drownfield Mire', 'Drownfield Quag', 'Drownfield Rut', 'Drownfield Sink', 'Drownfield Slough', 'Drownfield Wetland', 'Drybasin Oasis', 'Drybasin Riverbed', 'Drytop Pillars', 'Drytop Riverbed', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Everwinter Crossing', 'Everwinter Expanse', 'Everwinter Gap', 'Everwinter Gorge', 'Everwinter Incline', 'Everwinter Passage', 'Everwinter Peak', 'Everwinter Plain', 'Everwinter Reach', 'Everwinter Shores', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon', 'Firesink Caldera', 'Firesink Trench', 'Flammog Desolation', 'Flammog Fork', 'Flammog Valley', 'Flatrock Cliffs', 'Flatrock Plateau', 'Floatshoal Bight', 'Floatshoal Fissure', 'Floatshoal Floe', 'Frostbite Chasm', 'Frostbite Mountain', 'Frostpeak Ascent', 'Frostpeak Vista', 'Frostseep Crevasse', 'Frostseep Ravine', 'Giantweald Copse', 'Giantweald Dale', 'Giantweald Edge', 'Giantweald Glade', 'Giantweald Roots', 'Giantweald Woods', 'Glacierbreak Summit', 'Glacierfall Canyon', 'Glacierfall Cross', 'Glacierfall Fissure', 'Glacierfall Pass', 'Glacierfall Passage', 'Glacierfall Valley', 'Gravemound Brim', 'Gravemound Cliffs', 'Gravemound Hills', 'Gravemound Knoll', 'Gravemound Slope', 'Greenhollow Copse', 'Greenhollow Vale', 'Greenshore Bay', 'Greenshore Peninsula', 'Highstone Grassland', 'Highstone Loch', 'Highstone Meadow', 'Highstone Mound', 'Highstone Plains', 'Highstone Plateau', 'Hightree Borderlands', 'Hightree Cliffs', 'Hightree Dale', 'Hightree Enclave', 'Hightree Glade', 'Hightree Hillock', 'Hightree Isle', 'Hightree Lake', 'Hightree Levee', 'Hightree Pass', 'Hightree Portal East', 'Hightree Portal North', 'Hightree Portal West', 'Hightree Steep', 'Hightree Strand', 'Iceburn Cliffs', 'Iceburn Firth', 'Iceburn Peaks', 'Iceburn Tundra', 'Longfen Arms', 'Longfen Marsh', 'Longfen Veins', 'Meltwater Bog', 'Meltwater Channel', 'Meltwater Delta', 'Meltwater Sump', 'Mudfoot Mounds', 'Mudfoot Sump', 'Munten Fell', 'Munten Rise', 'Munten Tundra', 'Murdergulch Cross', 'Murdergulch Divide', 'Murdergulch Gap', 'Murdergulch Ravine', 'Murdergulch Trail', 'Northstrand Beach', 'Northstrand Dunes', 'Parchsand Cliffs', 'Parchsand Drought', 'Razorrock Bank', 'Razorrock Chasm', 'Razorrock Edge', 'Razorrock Gulch', 'Razorrock Passage', 'Razorrock Ravine', 'Razorrock Valley', 'Razorrock Verge', 'Redtree Enclave', 'Rivercopse Crossing', 'Rivercopse Curve', 'Rivercopse Fount', 'Rivercopse Path', 'Runnelvein Bog', 'Runnelvein Sink', 'Runnelvein Slough', 'Sandmount Ascent', 'Sandmount Desert', 'Sandmount Esker', 'Sandmount Strand', 'Sandrift Coast', 'Sandrift Dunes', 'Sandrift Expanse', 'Sandrift Fringe', 'Sandrift Portal East', 'Sandrift Portal North', 'Sandrift Portal West', 'Sandrift Prairie', 'Sandrift Shore', 'Sandrift Steppe', 'Scuttlesink Marsh', 'Scuttlesink Mouth', 'Scuttlesink Pools', 'Shaleheath Hills', 'Shaleheath Steep', 'Skullmarsh Lower', 'Skullmarsh Upper', 'Skylake Bridge', 'Skylake Hinterlands', 'Skysand Plateau', 'Skysand Ridge', 'Slakesands Canyon', 'Slakesands Mesa', 'Southgrove Escarp', 'Springsump Basin', 'Springsump Melt', 'Springsump Wetland', 'Stonelake Fields', 'Stonelake Hillock', 'Sunfang Approach', 'Sunfang Cliffs', 'Sunfang Dawn', 'Sunfang Ravine', 'Sunfang Wasteland', 'Sunkenbough Spring', 'Sunkenbough Woods', 'Swiftsands Basin', 'Swiftsands Chaparral', 'Swiftsands Plain', 'Thirstwater Gully', 'Thirstwater Steppe', 'Thirstwater Waste', 'Thunderrock Ascent', 'Thunderrock Draw', 'Thunderrock Rapids', 'Thunderrock Upland', 'Timberscar Copse', 'Timberscar Dell', 'Timberslope Bridge', 'Timberslope Dell', 'Timberslope Grove', 'Timbertop Dale', 'Timbertop Escarp', 'Timbertop Wood', 'Twinchannel Narrows', 'Watchwood Bluffs', 'Watchwood Grove', 'Watchwood Lakeside', 'Watchwood Precipice', 'Westweald Shore', 'Westweald Thicket', 'Wetgrave Bog', 'Wetgrave Marsh', 'Wetgrave Swale', 'Whitebank Cross', 'Whitebank Descent', 'Whitebank Portal East', 'Whitebank Portal North', 'Whitebank Portal South', 'Whitebank Ridge', 'Whitebank Shore', 'Whitebank Stream', 'Whitebank Wall', 'Whitecliff Expanse', 'Whitecliff Peak', 'Whitepeak Ascent', 'Whitepeak Spring', 'Whitepeak Tundra', 'Whitewall Pass', 'Whitewall Ridge', 'Widemoor Delta', 'Widemoor End', 'Widemoor Estuary', 'Widemoor Fen', 'Widemoor Flats', 'Widemoor Hills', 'Widemoor Pool', 'Widemoor Portal North', 'Widemoor Portal South', 'Widemoor Portal West', 'Widemoor Shore', 'Widemoor Woods', 'Willowshade Hills', 'Willowshade Icemarsh', 'Willowshade Lake', 'Willowshade Mire', 'Willowshade Pools', 'Willowshade Sink', 'Willowshade Wetlands', 'Windgrass Border', 'Windgrass Coast', 'Windgrass Fields', 'Windgrass Gully', 'Windgrass Portal North', 'Windgrass Portal South', 'Windgrass Portal West', 'Windgrass Precipice', 'Windgrass Rill', 'Windgrass Terrace'
-]
-
 
 OUTPUT_CHANNEL_NAME = "main"
 dt_format = '%Y-%m-%d %H:%M:%S'
@@ -51,13 +47,18 @@ async def slash_command_tree(interaction:discord.Interaction, number: int, strin
 async def fruits(interaction: discord.Interaction, fruits: str):
     await interaction.response.send_message(f'Your favourite fruit seems to be {fruits}')
 
-@fruits.autocomplete('add')
+@fruits.autocomplete('fruits')
 async def fruits_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
     fruits = ['Banana', 'Pineapple', 'Apple', 'Watermelon', 'Melon', 'Cherry']
     return [
         app_commands.Choice(name=fruit, value=fruit)
         for fruit in fruits if current.lower() in fruit.lower()
     ]
+
+## Working approach
+@bot.tree.command(name="add",description="Add objective")
+async def slash_command(interaction:discord.Interaction):
+    await interaction.response.send_message("Hello World!")
 
 ## Working approach
 #@bot.tree.command(name="add",description="Add objective")
@@ -178,6 +179,7 @@ async def update_output_channel():
         await bot_message.edit(content=table)
     else:
         await output_channel.send(content=table)
+
 
 
 bot.run(os.environ["DISCORD_TOKEN"])
