@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 from discord import app_commands
 import logging
 from typing import List
+import helper_functions
+from table2ascii import table2ascii as t2a, PresetStyle
 
 logging.basicConfig(level=logging.ERROR)
 intents = discord.Intents.default()
@@ -19,7 +21,15 @@ bot = commands.Bot(command_prefix='!', intents=intents, guild_ids=[7007870125250
 sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
-
+all_zones = [
+    'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon'
+]
+all_objectives = [
+    'Vortex', 'Castle', '7.4', '8.4', 'Core'
+]
+all_objective_levels = [
+    'Green', 'Blue', 'Purple', 'Gold'
+]
 
 OUTPUT_CHANNEL_NAME = "main"
 dt_format = '%Y-%m-%d %H:%M:%S'
@@ -32,42 +42,55 @@ async def on_ready():
         update_sheet.start()
     print(f"Slaya ama ready")
 
-#@bot.tree.command()
-#async def slash(interaction: discord.Interaction, number: int, string: str):
-#    await interaction.response.send_message(f'{number=} {string=}', ephemeral=True)
-
-# Can also specify a guild here, but this example chooses not to.
-#tree.add_command(slash)
-
-@bot.tree.command(name="addnew",description="Add objective new")
-async def slash_command_tree(interaction:discord.Interaction, number: int, string: str):
-    await interaction.response.send_message(f'{number=} {string=}', ephemeral=True)
-
 @bot.tree.command()
-async def fruits(interaction: discord.Interaction, fruits: str):
-    await interaction.response.send_message(f'Your favourite fruit seems to be {fruits}')
+async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
+    if zone not in all_zones:
+        return
+    if objective not in all_objectives:
+        return
+    if objective_level not in all_objective_levels:
+        return
+    
+    if not helper_functions.is_valid_time(f"{hours}:{minutes}"):
+        await interaction.response.send_message(f"Wrong time: {hours}:{minutes}")
+        return
 
-@fruits.autocomplete('fruits')
-async def fruits_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
-    fruits = ['Banana', 'Pineapple', 'Apple', 'Watermelon', 'Melon', 'Cherry']
+    answer = add_record(f"{objective_level} {objective}", zone, f"{hours}:{minutes}")
+
+    if answer:
+        await interaction.response.send_message(f'Objective added: {objective_level} {objective} in {zone} at {hours}:{minutes}')
+    else:
+        await interaction.response.send_message(f'Objective already added.')
+
+@add.autocomplete('objective')
+async def objective_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
     return [
-        app_commands.Choice(name=fruit, value=fruit)
-        for fruit in fruits if current.lower() in fruit.lower()
+        app_commands.Choice(name=objective, value=objective)
+        for objective in all_objectives if current.lower() in objective.lower()
     ]
 
-## Working approach
-@bot.tree.command(name="add",description="Add objective")
-async def slash_command(interaction:discord.Interaction):
-    await interaction.response.send_message("Hello World!")
+@add.autocomplete('zone')
+async def zone_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
+    return [
+        app_commands.Choice(name=zone, value=zone)
+        for zone in all_zones if current.lower() in zone.lower()
+    ]
 
-## Working approach
-#@bot.tree.command(name="add",description="Add objective")
-#async def slash_command(interaction:discord.Interaction):
-#    await interaction.response.send_message("Hello World!")
-
+@add.autocomplete('objective_level')
+async def objective_level_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
+    return [
+        app_commands.Choice(name=objective_level, value=objective_level)
+        for objective_level in all_objective_levels if current.lower() in objective_level.lower()
+    ]
 
 @bot.command()
-async def add(ctx, type_: str, map_: str, time_until: str):
+async def add_manual(ctx, type_: str, map_: str, time_until: str):
+    if add_record():
+        add_record(type_, map_, time_until)
+    else:
+        await ctx.send("Record with similar data already exists!")
+
+def add_record(type_: str, map_: str, time_until: str):
     global records_in_memory
 
     try:
@@ -90,8 +113,8 @@ async def add(ctx, type_: str, map_: str, time_until: str):
             # If type, map, and time (±5 minutes) match, then don't add
             if record['Type'] == type_ and record['Map'] == map_ and \
             (record_time - timedelta(minutes=5)) <= time_utc <= (record_time + timedelta(minutes=5)):
-                await ctx.send("Record with similar data already exists!")
-                return
+                #await ctx.send("Record with similar data already exists!")
+                return False
 
         # Prepare the row to be inserted
         row = [type_, map_, time_until, time_utc_str]
@@ -111,9 +134,11 @@ async def add(ctx, type_: str, map_: str, time_until: str):
         sheet.SHEET.insert_row(row, insert_position)
         new_record = {'Type': row[0], 'Map': row[1], 'Time until (minutes)': row[2], 'Time (UTC)': row[3]}
         records_in_memory.append(new_record)
-        await ctx.send(f"Added {type_} on {map_} with {time_until} left.")
+        return True
     except Exception as e:
         logging.exception("Error in add.")
+
+
 
 @tasks.loop(minutes=1)
 async def update_sheet():
@@ -150,6 +175,8 @@ async def update_sheet():
 async def update_output_channel():
     # Get the output channel
     guild = bot.guilds[0]  # Assuming bot is in only one guild; adjust as needed
+    embed = discord.Embed(title=f"Current objectives:", color=0x03f8fc)
+
     output_channel = discord.utils.get(guild.text_channels, name=OUTPUT_CHANNEL_NAME)
 
     if not output_channel:
@@ -166,20 +193,17 @@ async def update_output_channel():
     headers = data[0]
     rows = data[1:]
 
-    # Convert the data to a table format
-    table = "```"
-    table += " | ".join(headers) + "\n"
-    table += "-+-".join(["-"*len(header) for header in headers]) + "\n"  # separator line
-    for row in rows:
-        table += " | ".join(row) + "\n"
-    table += "```"
+    lst = []
+
+    for record in data:
+        embed.add_field(name="Objectives", value=f'{record[0]}', inline=True)
+        
+    #await output_channel.send(embed=embed)  
 
     # Update the bot's message if it exists, else send a new one
     if bot_message:
-        await bot_message.edit(content=table)
+        await bot_message.edit(embed=embed)
     else:
-        await output_channel.send(content=table)
-
-
+        await output_channel.send(embed=embed)
 
 bot.run(os.environ["DISCORD_TOKEN"])
