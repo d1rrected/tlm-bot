@@ -66,7 +66,7 @@ def transform_single_objective(objective_parameters):
         elif "blue" in objective.lower():
             return ":blue_square: **" + objective + "** :blue_square:"
         elif "gold" in objective.lower():
-            return ":yelow_square: **" + objective + "** :yelow_square:"
+            return ":yellow_square: **" + objective + "** :yelow_square:"
         else:
             return objective
 
