@@ -25,7 +25,7 @@ all_zones = [
     'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon'
 ]
 all_objectives = [
-    'Vortex', 'Castle', '7.4', '8.4', 'Core'
+    'Vortex', 'Castle', 'Core', '7.4', '8.4'
 ]
 all_objective_levels = [
     'Green', 'Blue', 'Purple', 'Gold'
