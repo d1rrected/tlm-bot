@@ -31,7 +31,7 @@ all_objective_levels = [
     'Green', 'Blue', 'Purple', 'Gold'
 ]
 
-OUTPUT_CHANNEL_NAME = "output"
+OUTPUT_CHANNEL_NAME = "objectives-tracker"
 dt_format = '%Y-%m-%d %H:%M:%S'
 
 
