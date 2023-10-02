@@ -9,7 +9,7 @@ from discord import app_commands
 import logging
 from typing import List
 import helper_functions
-from table2ascii import table2ascii as t2a, PresetStyle
+#from table2ascii import table2ascii as t2a, PresetStyle, Alignment
 
 logging.basicConfig(level=logging.ERROR)
 intents = discord.Intents.default()
@@ -33,6 +33,54 @@ all_objective_levels = [
 
 OUTPUT_CHANNEL_NAME = "main"
 dt_format = '%Y-%m-%d %H:%M:%S'
+
+
+def butify_dt_utc(datetime):
+    date_obj = datetime.strptime(datetime, dt_format)
+    return date_obj.strftime('%H:%M UTC')
+
+def draw_table(data):
+    if not data:
+        return ""
+
+    # Determine the maximum width for each column
+    col_widths = [max(len(str(item)) for item in col) for col in zip(*data)]
+
+    # Draw the table
+    table = []
+    for row in data:
+        # Ensure each cell has the same width by padding with spaces as needed
+        padded_row = [str(item).ljust(width) for item, width in zip(row, col_widths)]
+        table.append("|   " + "   |   ".join(padded_row) + "   |   ")
+
+    return "\n".join(table)
+
+def transform_single_objective(objective_parameters):
+    """Transforms a single list as per the given specifications."""
+    def transform_string(objective):
+        # Check and prepend/append appropriate emoji
+        if "green" in objective.lower():
+            return ":green_square: **" + objective + "** :green_square:"
+        elif "purple" in objective.lower():
+            return ":purple_square: **" + objective + "** :purple_square:"
+        elif "blue" in objective.lower():
+            return ":blue_square: **" + objective + "** :blue_square:"
+        elif "gold" in objective.lower():
+            return ":yelow_square: **" + objective + "** :yelow_square:"
+        else:
+            return objective
+
+    # Apply the transformation to each element of the list (except the last one)
+    transformed_data = [transform_string(objective) for objective in objective_parameters[:-1]]
+
+    # Convert the last string to datetime and then format it as "HH:mm UTC"
+    date_obj = datetime.strptime(objective_parameters[-1], '%Y-%m-%d %H:%M:%S')
+    transformed_data.append(date_obj.strftime('%H:%M UTC'))
+    
+    # Add "In " before the third item
+    transformed_data[2] = "In " + objective_parameters[2]
+    
+    return transformed_data
 
 @bot.event
 async def on_ready():
@@ -190,20 +238,47 @@ async def update_output_channel():
 
     # Get data from the spreadsheet
     data = sheet.SHEET.get_all_values()
-    headers = data[0]
-    rows = data[1:]
+    
+    body_records = []
+    for row in data:
+        if row[0] == 'Type':
+            continue
 
-    lst = []
+        body_records.append(transform_single_objective(row[:4]))
+        type(body_records)
+    
+    # good example of table2ascii implementation, but no emojis
+    # if body_records:
+    #     output = t2a(
+    #     #header=["Rank", "Team", "Kills", "Position Pts"],
+    #     body=body_records,
+    #     style=PresetStyle.thin_compact,
+    #     alignments=Alignment.LEFT,
+    #     )
+    if body_records:
+        output = draw_table(body_records)
+    else:
+        output = ":weary: :weary: **No objections! Find something!** :weary: :weary:"
 
-    for record in data:
-        embed.add_field(name="Objectives", value=f'{record[0]}', inline=True)
+    # output = t2a(
+    #     header=["Rank", "Team", "Kills", "Position Pts", "Total"],
+    #         body=[
+    #             [1, 'Team A', 2, 4, 6], 
+    #             [2, 'Team B', 3, 3, 6], 
+    #             [3, 'Team C', 4, 2, 6]],
+    #         style=PresetStyle.thin_compact
+    #     )
+
+    ## Embed implementation
+    #for record in data:
+    #    embed.add_field(name="Objectives", value=f'{record[0]}', inline=True)
         
     #await output_channel.send(embed=embed)  
 
     # Update the bot's message if it exists, else send a new one
     if bot_message:
-        await bot_message.edit(embed=embed)
+        await bot_message.edit(content=f"\n{output}\n")
     else:
-        await output_channel.send(embed=embed)
+        await output_channel.send(content=f"\n{output}\n")
 
 bot.run(os.environ["DISCORD_TOKEN"])
