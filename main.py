@@ -258,7 +258,7 @@ async def update_output_channel():
     if body_records:
         output = draw_table(body_records)
     else:
-        output = ":weary: :weary: **No objections! Find something!** :weary: :weary:"
+        output = ":weary: :weary: **No objectives! Find something!** :weary: :weary:"
 
     # output = t2a(
     #     header=["Rank", "Team", "Kills", "Position Pts", "Total"],
