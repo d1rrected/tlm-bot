@@ -14,7 +14,7 @@ import helper_functions
 logging.basicConfig(level=logging.ERROR)
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents, guild_ids=[700787012525097050])
+bot = commands.Bot(command_prefix='!', intents=intents, guild_ids=[700787012525097050, 375510056260861952])
 #client = discord.Client(intents=intents)
 #tree = app_commands.CommandTree(client)
 #tree = app_commands.CommandTree(bot)
@@ -31,7 +31,7 @@ all_objective_levels = [
     'Green', 'Blue', 'Purple', 'Gold'
 ]
 
-OUTPUT_CHANNEL_NAME = "main"
+OUTPUT_CHANNEL_NAME = "output"
 dt_format = '%Y-%m-%d %H:%M:%S'
 
 
