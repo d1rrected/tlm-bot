@@ -66,7 +66,7 @@ def transform_single_objective(objective_parameters):
         elif "blue" in objective.lower():
             return ":blue_square: **" + objective + "** :blue_square:"
         elif "gold" in objective.lower():
-            return ":yellow_square: **" + objective + "** :yelow_square:"
+            return ":yellow_square: **" + objective + "** :yellow_square:"
         else:
             return objective
 
@@ -92,6 +92,10 @@ async def on_ready():
 
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
+
+    if interaction.channel.name != "cores-vortex":
+        return
+
     if zone not in all_zones:
         return
     if objective not in all_objectives:
