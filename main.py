@@ -94,6 +94,7 @@ async def on_ready():
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
     if interaction.channel.name != "cores-vortex":
+        await interaction.response.send_message(f"Wrong channel! Use Cores-vortex channgel.")
         return
 
     if zone not in all_zones:
