@@ -230,7 +230,7 @@ async def update_output_channel():
     guild = bot.guilds[0]  # Assuming bot is in only one guild; adjust as needed
     embed = discord.Embed(title=f"Current objectives:", color=0x03f8fc)
 
-    output_channel = discord.utils.get(guild.text_channels, name=OUTPUT_CHANNEL_NAME)
+    output_channel = discord.utils.find(lambda c: OUTPUT_CHANNEL_NAME in c.name, guild.text_channels)
 
     if not output_channel:
         print(f"Cannot find channel with name {OUTPUT_CHANNEL_NAME}")
