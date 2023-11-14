@@ -22,7 +22,7 @@ sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
 all_zones = [
-    'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Sandrift Fringe', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon'
+    'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Hightree Enclave', 'Sandrift Fringe', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon'
 ]
 all_objectives = [
     'Vortex', 'Castle', 'Core', '7.4', '8.4'
