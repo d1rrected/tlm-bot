@@ -40,6 +40,20 @@ def butify_dt_utc(datetime):
     date_obj = datetime.strptime(datetime, dt_format)
     return date_obj.strftime('%H:%M UTC')
 
+"""Transforms a single list as per the given specifications."""
+def transform_string(objective):
+    # Check and prepend/append appropriate emoji
+    if "green" in objective.lower():
+        return ":green_square: **" + objective + "** :green_square:"
+    elif "purple" in objective.lower():
+        return ":purple_square: **" + objective + "** :purple_square:"
+    elif "blue" in objective.lower():
+        return ":blue_square: **" + objective + "** :blue_square:"
+    elif "gold" in objective.lower():
+        return ":yellow_square: **" + objective + "** :yellow_square:"
+    else:
+        return objective
+
 def draw_table(data):
     if not data:
         return ""
@@ -57,20 +71,6 @@ def draw_table(data):
     return "\n".join(table)
 
 def transform_single_objective(objective_parameters):
-    """Transforms a single list as per the given specifications."""
-    def transform_string(objective):
-        # Check and prepend/append appropriate emoji
-        if "green" in objective.lower():
-            return ":green_square: **" + objective + "** :green_square:"
-        elif "purple" in objective.lower():
-            return ":purple_square: **" + objective + "** :purple_square:"
-        elif "blue" in objective.lower():
-            return ":blue_square: **" + objective + "** :blue_square:"
-        elif "gold" in objective.lower():
-            return ":yellow_square: **" + objective + "** :yellow_square:"
-        else:
-            return objective
-
     # Apply the transformation to each element of the list (except the last one)
     transformed_data = [transform_string(objective) for objective in objective_parameters[:-1]]
 
@@ -112,7 +112,8 @@ async def add(interaction: discord.Interaction, objective_level: str, objective:
     answer = add_record(f"{objective_level} {objective}", zone, f"{hours}:{minutes}")
 
     if answer:
-        await interaction.response.send_message(f'Objective added: {objective_level} {objective} in {zone} at {hours}:{minutes}')
+        trans_obojective = transform_string(objective_level)
+        await interaction.response.send_message(f'Objective added: {trans_obojective} {objective} in {zone} at {hours}:{minutes}')
     else:
         await interaction.response.send_message(f'Objective already added.')
 
