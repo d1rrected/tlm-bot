@@ -54,7 +54,11 @@ class SpreadSheet():
         self.SHEET.update_cell(cell_row, fill_row_number, fill_cell_value)
 
     def get_all_records(self):
-        return self.SHEET.get_all_records(expected_headers=[])
+        records = self.SHEET.get_all_values()  # Get all values including headers
+        if len(records) <= 1:  # Check if there's only headers or the sheet is empty
+            return []  # Return an empty list if there are no data rows
+        else:
+            return self.SHEET.get_all_records(expected_headers=[])
 
     def get_cell_value(self, cell_name, value_row):
         cell = self.SHEET.find(cell_name)
