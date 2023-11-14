@@ -112,8 +112,8 @@ async def add(interaction: discord.Interaction, objective_level: str, objective:
     answer = add_record(f"{objective_level} {objective}", zone, f"{hours}:{minutes}")
 
     if answer:
-        trans_obojective = transform_string(objective_level)
-        await interaction.response.send_message(f'Objective added: {trans_obojective} {objective} in {zone} at {hours}:{minutes}')
+        trans_obojective = transform_string(objective_level + " " + objective)
+        await interaction.response.send_message(f'Objective added: {trans_obojective} in {zone} at {hours}:{minutes}')
     else:
         await interaction.response.send_message(f'Objective already added.')
 
