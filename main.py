@@ -32,6 +32,7 @@ all_objective_levels = [
 ]
 
 OUTPUT_CHANNEL_NAME = "objectives-tracker"
+INPUT_CHANNEL_NAME = "cores-vortex"
 dt_format = '%Y-%m-%d %H:%M:%S'
 
 
@@ -93,8 +94,8 @@ async def on_ready():
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
-    if "objectives-tracker" not in interaction.channel.name:
-        await interaction.response.send_message(f"Wrong channel! Use cores-vortex channgel.")
+    if INPUT_CHANNEL_NAME not in interaction.channel.name:
+        await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channgel.")
         return
 
     if zone not in all_zones:
@@ -196,7 +197,7 @@ def add_record(type_: str, map_: str, time_until: str):
 @tasks.loop(minutes=1)
 async def update_sheet():
     try:
-        records_in_memory = sheet.get_all_records()
+        records_in_mfemory = sheet.get_all_records()
 
         updated_rows = []
         for record in records_in_memory:
