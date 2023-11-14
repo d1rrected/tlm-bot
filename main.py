@@ -93,9 +93,10 @@ async def on_ready():
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
+    print(f"Something wrong in channel {interaction.channel.name}")
     if interaction.channel.name != "cores-vortex":
         print(f"Something wrong in channel {interaction.channel.name}")
-        #await interaction.response.send_message(f"Wrong channel! Use cores-vortex channgel.")
+        #await interaction.response.send_message(f"Wrong channel! Use cores-vortex channel.")
         return
 
     if zone not in all_zones:
@@ -232,9 +233,10 @@ async def update_output_channel():
     embed = discord.Embed(title=f"Current objectives:", color=0x03f8fc)
 
     output_channel = discord.utils.get(guild.text_channels, name=OUTPUT_CHANNEL_NAME)
-
+    print(f"tchannels {guild.text_channels}")
+    print(f"current channel {interaction.channel.name}")
     if not output_channel:
-        print(f"Cannot find channel with name {OUTPUT_CHANNEL_NAME}")
+        print(f"Cannot find zis channel with name {OUTPUT_CHANNEL_NAME}")
         return
 
     # Fetch the latest messages to find the bot's message
