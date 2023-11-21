@@ -94,6 +94,7 @@ async def on_ready():
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
+    print(f"Add obj: {objective_level} {objective} {zone} {hours} {minutes}")
     if INPUT_CHANNEL_NAME not in interaction.channel.name:
         await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channgel.")
         return
