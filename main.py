@@ -22,7 +22,7 @@ sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
 nearest_zones = [
-    'Sunstrand Shoal', 'Frostspring Vulcano', 'Stonemouth Bay', 'Southgrove Thicket', 'Frostspring Passage', 'Stonemouth Southbluff', 'Sunstrand Delta', 'Sunstrand Quicksands', 'Daemonium Keep', 'Stonemouth Northbluff', 'Southgrove Copse', 'Southgrove Escarp', 'Sandrift Expance', 'Springsump Melt', 'Dryvein Steppe', 'Sunstrand Dunes', 'Sandrift Fringe', 'Whitecliff Peak', 'Firesink Trench', 'Dryvein Riverbed', 'Springsump Basin', 'Springsump Wetland', 'Dryvein Confluence', 'Whitecliff Expance', 'Thirstwater Steppe'
+    'Sunstrand Shoal', 'Frostspring Vulcano', 'Stonemouth Bay', 'Southgrove Thicket', 'Frostspring Passage', 'Stonemouth Southbluff', 'Sunstrand Delta', 'Sunstrand Quicksands', 'Daemonium Keep', 'Stonemouth Northbluff', 'Southgrove Copse', 'Southgrove Escarp', 'Sandrift Expance', 'Springsump Melt', 'Dryvein Steppe', 'Sunstrand Dunes', 'Sandrift Fringe', 'Whitecliff Peak', 'Firesink Trench', 'Dryvein Riverbed', 'Springsump Basin', 'Springsump Wetland', 'Dryvein Confluence', 'Whitecliff Expance', 'Sandrift Coast'
 ]
 all_objectives = [
     'Vortex', 'Castle', 'Core', '7.4', '8.4'
