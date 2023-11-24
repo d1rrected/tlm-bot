@@ -99,8 +99,8 @@ async def add(interaction: discord.Interaction, objective_level: str, objective:
         await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channgel.")
         return
 
-    if zone not in nearest_zones:
-        return
+    #if zone not in nearest_zones:
+    #    return
     if objective not in all_objectives:
         return
     if objective_level not in all_objective_levels:
