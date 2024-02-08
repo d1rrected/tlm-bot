@@ -21,8 +21,8 @@ bot = commands.Bot(command_prefix='!', intents=intents, guild_ids=[7007870125250
 sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
-all_zones = [
-    'Sunstrand Shoal', 'Frostspring Vulcano', 'Frostspring Passage', 'Southgrove Thicket', 'Sunstrand Quicksands', 'Stonemouth Southbluff', 'Stonemouth Bay', 'Hightree Enclave', 'Sandrift Fringe', 'Dryvein Steppe', 'Southgrove Copse', 'Sunstrand Dunes', 'Sunstrand Delta', 'Stonemouth Northbluff', 'Dryvein Confluence', 'Dryvein Cross', 'Dryvein End', 'Dryvein Oasis', 'Dryvein Plain', 'Dryvein Riverbed', 'Farshore Bay', 'Farshore Cape', 'Farshore Drylands', 'Farshore Esker', 'Farshore Heath', 'Farshore Lagoon'
+nearest_zones = [
+    'Sunstrand Shoal', 'Frostspring Vulcano', 'Stonemouth Bay', 'Southgrove Thicket', 'Frostspring Passage', 'Stonemouth Southbluff', 'Sunstrand Delta', 'Sunstrand Quicksands', 'Daemonium Keep', 'Stonemouth Northbluff', 'Southgrove Copse', 'Southgrove Escarp', 'Sandrift Expance', 'Springsump Melt', 'Dryvein Steppe', 'Sunstrand Dunes', 'Sandrift Fringe', 'Whitecliff Peak', 'Firesink Trench', 'Dryvein Riverbed', 'Springsump Basin', 'Springsump Wetland', 'Dryvein Confluence', 'Whitecliff Expance', 'Sandrift Coast'
 ]
 all_objectives = [
     'Vortex', 'Castle', 'Core', '7.4', '8.4'
@@ -94,12 +94,13 @@ async def on_ready():
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
+    print(f"Add obj: {objective_level} {objective} {zone} {hours} {minutes}")
     if INPUT_CHANNEL_NAME not in interaction.channel.name:
         await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channel.")
         return
 
-    if zone not in all_zones:
-        return
+    #if zone not in nearest_zones:
+    #    return
     if objective not in all_objectives:
         return
     if objective_level not in all_objective_levels:
@@ -128,7 +129,7 @@ async def objective_autocomplete(interaction: discord.Interaction, current: str)
 async def zone_autocomplete(interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
     return [
         app_commands.Choice(name=zone, value=zone)
-        for zone in all_zones if current.lower() in zone.lower()
+        for zone in nearest_zones if current.lower() in zone.lower()
     ]
 
 @add.autocomplete('objective_level')
