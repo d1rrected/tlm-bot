@@ -89,13 +89,13 @@ async def on_ready():
     update_output_channel.start()
     if not update_sheet.is_running():
         update_sheet.start()
-    print(f"Slaya ama ready")
+    print(f"================= Slaya ama ready =================")
 
 @bot.tree.command()
 async def add(interaction: discord.Interaction, objective_level: str, objective: str, zone: str, hours: int, minutes: int):
 
     if INPUT_CHANNEL_NAME not in interaction.channel.name:
-        await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channgel.")
+        await interaction.response.send_message(f"Wrong channel! Use {INPUT_CHANNEL_NAME} channel.")
         return
 
     if zone not in all_zones:
@@ -113,7 +113,7 @@ async def add(interaction: discord.Interaction, objective_level: str, objective:
 
     if answer:
         trans_obojective = transform_string(objective_level + " " + objective)
-        await interaction.response.send_message(f'Objective added: {trans_obojective} in {zone} at {hours}:{minutes}')
+        await interaction.response.send_message(f'Objective added: {trans_obojective} in {zone} in {hours}h {minutes}m')
     else:
         await interaction.response.send_message(f'Objective already added.')
 
@@ -198,7 +198,7 @@ def add_record(type_: str, map_: str, time_until: str):
 @tasks.loop(minutes=1)
 async def update_sheet():
     try:
-        records_in_mfemory = sheet.get_all_records()
+        records_in_memory = sheet.get_all_records()
 
         updated_rows = []
         for record in records_in_memory:
