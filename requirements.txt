@@ -8,8 +8,8 @@ frozenlist==1.3.3
 idna==3.4
 multidict==6.0.3
 yarl==1.8.2
-google-api-python-client 
-google-auth-httplib2 
-google-auth-oauthlib
-gspread
-oauth2client
+google-api-python-client==2.101.0
+google-auth-httplib2==0.1.1
+google-auth-oauthlib==1.0.0
+gspread==5.8.0
+oauth2client==4.1.3
