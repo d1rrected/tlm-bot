@@ -21,8 +21,13 @@ bot = commands.Bot(command_prefix='!', intents=intents, guild_ids=[7007870125250
 sheet = services.spreadsheet.SpreadSheet("objectives_list", "Upcoming Objectives")
 records_in_memory = sheet.get_all_records()
 time_utc_column_num = 3
+
+# nearest_zones = [
+#    'Sunstrand Shoal', 'Frostspring Vulcano', 'Stonemouth Bay', 'Southgrove Thicket', 'Frostspring Passage', 'Stonemouth Southbluff', 'Sunstrand Delta', 'Sunstrand Quicksands', 'Daemonium Keep', 'Stonemouth Northbluff', 'Southgrove Copse', 'Southgrove Escarp', 'Sandrift Expance', 'Springsump Melt', 'Dryvein Steppe', 'Sunstrand Dunes', 'Sandrift Fringe', 'Whitecliff Peak', 'Firesink Trench', 'Dryvein Riverbed', 'Springsump Basin', 'Springsump Wetland', 'Dryvein Confluence', 'Whitecliff Expance', 'Sandrift Coast'
+#]
+
 nearest_zones = [
-    'Sunstrand Shoal', 'Frostspring Vulcano', 'Stonemouth Bay', 'Southgrove Thicket', 'Frostspring Passage', 'Stonemouth Southbluff', 'Sunstrand Delta', 'Sunstrand Quicksands', 'Daemonium Keep', 'Stonemouth Northbluff', 'Southgrove Copse', 'Southgrove Escarp', 'Sandrift Expance', 'Springsump Melt', 'Dryvein Steppe', 'Sunstrand Dunes', 'Sandrift Fringe', 'Whitecliff Peak', 'Firesink Trench', 'Dryvein Riverbed', 'Springsump Basin', 'Springsump Wetland', 'Dryvein Confluence', 'Whitecliff Expance', 'Sandrift Coast'
+    'Darkbrough Snag ', 'Iceburn Firth ', 'Iceburn Tundra ', 'Iceburn Peaks ', 'Iceburn Cliffs ', 'Deepwood Copse ', 'Eldersleep ', 'Deepwood Gorge ', 'Glacierfall VAlley ', 'Glacierfall Canyon ', 'Glacierfall Cross ', 'Glacierfall Passage ', 'Glacierfall Fissure ', 'Runnelvein Bog ', 'Runnelvein Slough ', 'Runnelvein Sink ', 'Flammog Desolation ', 'Flammog Valley ', 'Flammog Fork ', 'Thunderrock Draw ', 'Thunderrock Ascent ', 'Rivercopse Fount ', 'Thunderrock Upland ', 'Rivercopse Crossing ', 'Rivercospe Curve ', 'Thunderrock Rapids ', 'Giantweald Roots ', 'Giantweald Glade ', 'Giantweald Copse ', 'Giantweald Woods ', 'Eye of the Forest ', 'Floatshoal Floe '    
 ]
 all_objectives = [
     'Vortex', 'Castle', 'Core', '7.4', '8.4'
