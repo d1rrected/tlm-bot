@@ -27,7 +27,7 @@ time_utc_column_num = 3
 #]
 
 nearest_zones = [
-    'Darkbrough Snag' 'Iceburn Firth' 'Iceburn Tundra' 'Iceburn Peaks' 'Iceburn Cliffs' 'Deepwood Copse' 'Eldersleep' 'Deepwood Gorge' 'Glacierfall VAlley' 'Glacierfall Canyon' 'Glacierfall Cross' 'Glacierfall Passage' 'Glacierfall Fissure' 'Runnelvein Bog' 'Runnelvein Slough' 'Runnelvein Sink' 'Flammog Desolation' 'Flammog Valley' 'Flammog Fork' 'Thunderrock Draw' 'Thunderrock Ascent' 'Rivercopse Fount' 'Thunderrock Upland' 'Rivercopse Crossing' 'Rivercospe Curve' 'Thunderrock Rapids' 'Giantweald Roots' 'Giantweald Glade' 'Giantweald Copse' 'Giantweald Woods' 'Eye of the Forest' 'Floatshoal Floe'    
+    'Darkbrough Snag', 'Iceburn Firth', 'Iceburn Tundra', 'Deepwood Copse', 'Eldersleep', 'Deepwood Gorge', 'Glacierfall VAlley', 'Glacierfall Canyon', 'Glacierfall Cross', 'Runnelvein Bog', 'Runnelvein Slough', 'Runnelvein Sink', 'Flammog Desolation', 'Flammog Valley', 'Flammog Fork', 'Thunderrock Draw', 'Thunderrock Ascent', 'Rivercopse Fount', 'Thunderrock Upland', 'Rivercopse Crossing', 'Rivercospe Curve', 'Thunderrock Rapids', 'Giantweald Roots', 'Eye of the Forest', 'Floatshoal Floe'
 ]
 all_objectives = [
     'Vortex', 'Castle', 'Core', '7.4', '8.4'
